@@ -1,0 +1,62 @@
+{% load static %}
+
+<style>
+  #fav {
+    padding-left: 20px;
+  }
+
+  .wrapper {
+    position: relative;
+    text-align: right;
+    margin-top: -2px;
+    padding-left: 20px;
+  }
+  input.inp {
+    opacity: 0;
+  }
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    flex-direction:column;
+    padding: 5px;
+    gap: 1px;
+    right: 0;
+    text-align: right;
+  }
+  input:checked ~ .dropdown {
+    display: flex;
+  }  
+</style>
+
+<div class="container">
+    <nav class="topo">
+        <a href="{% url 'index' %}" id="title">CENTRAL IMÓVEIS</a>
+        <ul>
+            <li><a href="{% url 'imoveis_categoria' 'apartamento' %}">Apartamentos</a></li>
+            <li><a href="{% url 'imoveis_categoria' 'casa' %}">Casas</a></li>
+            <li><a href="{% url 'imoveis_categoria' 'condominio' %}">Condominios</a></li>
+            <li><a href="{% url 'imoveis_categoria' 'quarto' %}">Quartos</a></li>
+        </ul>
+            {% if user.is_authenticated %}
+              <li id="fav">
+                <a href="{% url 'favoritos_lista' %}"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png" title="Lista de favoritos" width="20" height="20"></a>
+              </li>
+              <div class="wrapper">
+                <input class="inp" id="toggler" type="checkbox">
+                <label for="toggler">
+                  <img src="https://cdn-icons-png.flaticon.com/512/747/747376.png" title="Perfil" width="20" height="20">
+                </label>
+                <div class="dropdown">
+                  <a href="{% url 'cadastro_imovel' %}">Cadastrar Imóvel</a>
+                  <a href="{% url 'dashboard' %}">Perfil</a>
+                  <a href="{% url 'logout' %}">Sair</a>
+                </div>
+              </div>
+            {% else %}
+            <ul>
+              <li><a href="{% url 'login' %}" id="button">Entrar</a></li>
+            </ul>
+            {% endif %}
+    </nav>
+</div>

@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+
+{% block titulo %} {{ imovel.id }} | {% endblock %}
+
+{% block conteudo %}
+<style>
+        * {
+            font-family: Inter, sans-serif;
+            box-sizing: border-box;
+        }
+
+        html{
+            height: 100%;
+        }
+
+        body{
+            margin: 0;
+            min-height: 100%;
+        }
+
+        nav {
+            width: 100%;
+            display: flex;
+            position: fixed;
+            margin: 28px 560px;
+        }
+        nav a {
+            color: #000000;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        #title {
+            position: fixed;
+            left: 2%;
+            top: 3%;
+        }
+
+        #button{
+            background-color: #161B35;
+            color: #fff;
+            border-radius: 5px;
+            padding: 8px 18px;
+        }
+
+        nav li {
+            list-style: none;
+        }
+
+        nav ul li{
+            padding: 25px;
+            display: inline;
+            position: relative;
+        }
+
+        #wrap{
+            display: flex;
+        }
+
+        .fotoImovel{
+            height: 500px;
+            width: 800px;
+            margin-top: 80px;
+            margin-left: 24px;
+            display: flex;
+            border-radius: 10px;
+        }
+
+        .tabela h3 {
+            display: flex;
+            margin: 80px auto;
+            padding-left: 30px;
+            font-size: x-large;
+        }
+
+        .tabela p {
+            margin: -80px auto;
+            padding-left: 30px;
+            font-size: large;
+        }
+
+        .informacoes {
+            display: flex;
+            margin: 58px auto;
+            padding: 50px;
+            font-size: large;
+        }
+
+        .informacoes th {
+            display: flex;
+            text-align: center;
+            font-size: large;
+            color: #fff;
+            background-color: #161B35;
+            padding: 4px 65px;
+            border-radius: 10px;
+        }
+
+        #campo1 {
+            text-align:left;
+        }
+
+        #campo2 {
+            text-align:center;
+        }
+
+        .iconTable {
+            height: 20px;
+            width: 26px;
+            margin: -5px;
+        }
+
+        .contato {
+            padding-top: 100px;
+        }
+
+        #button1 {
+            background-color: #161B35;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 120px;
+            margin: 85px 27px;
+            text-decoration: none;
+        }
+
+        #iconsP {
+            height: 18px;
+            padding-top: 3px;
+        }
+
+        #heartfav {
+            display: flex;
+            color: red;
+            margin: -50px 0 0 350px;
+            height: 0;
+          }
+          
+        #heart {
+            display: flex;
+            color: rgb(0, 0, 0);
+            margin: -50px 0 0 350px;
+            height: 0;
+        }
+</style>
+
+{% include 'parciais/_messages.html'%}
+<section id="wrap">
+    <div class="img">
+        {% if imovel.imagens_imovel %}
+            <img src="{{ imovel.imagens_imovel.url }}" alt="Foto Imóvel" class="fotoImovel">
+        {% endif %}
+    </div>
+    <div class="tabela">
+        <h3>{{ imovel.categoria_imovel|title }} para {{ imovel.venda_alugel_imovel }}, com {{ imovel.qtd_quartos_imovel }} quartos,<br>{{ imovel.tamanho_imovel }}m², R${{ imovel.preco_imovel}}</h3>
+        <p><i class="fa-solid fa-clock"></i> Identicador do Imóvel: {{ imovel.id }}<br>
+            <i class="fa-solid fa-clock"></i> Publicado {{ imovel.data_imovel }}<br>
+            <i class="fa-solid fa-clock"></i> {{ imovel.av_rua_imovel }} {{ imovel.rua_imovel }}, Bairro {{ imovel.bairro_imovel|title }}, Picos
+        </p>
+        <table class="informacoes">
+            <th>Mais informações</th>
+            <tr></tr>
+            <tr>
+                <td id="campo1">Tamanho:</td>
+                <td id="campo2">{{ imovel.tamanho_imovel }}m²</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td id="campo1">Qtd de quartos:</td>
+                <td id="campo2">{{ imovel.qtd_quartos_imovel }}</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td id="campo1">Qtd de banheiros:</td>
+                <td id="campo2">{{ imovel.qtd_banheiros_imovel }}</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td id="campo1">Possui garagem?</td>
+                <td id="campo2">{{ imovel.garagem_imovel }}</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td id="campo1">Possui quintal?</td>
+                <td id="campo2"> {{ imovel.quintal_imovel }}</td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td id="campo1">Aceita pet?</td>
+                <td id="campo2">{{ imovel.pets_imovel }}</td>
+            </tr>
+        </table>
+        <p>Anunciante: {{ imovel.anunciante_imovel }}<br>
+            Telefone: (89) {{ imovel.telefone_imovel }}
+        </p>
+        <div class="contato">
+            <a href="#" id="button1">Entrar em contato</a>
+            {% if user.is_authenticated %}
+                {% if imovel in favoritos_lista %}
+                    <a href="{% url 'favorito_add' imovel.id %}" data-toggle="tooltip" title="Remover dos favoritos"><i class="fas fa-heart fa-2x" id="heartfav" style="margin-top: -27px; display: flex; margin-left: 440px; height: 50px; width: 70px;"></i></a>
+                {% else %}
+                    <a href="{% url 'favorito_add' imovel.id %}" data-toggle="tooltip" title="Add aos favoritos"><i class="fas fa-heart fa-2x" id="heart" style="margin-top: -27px; display: flex; margin-left: 440px; height: 50px; width: 70px;"></i></a
+                {% endif %}
+            {% else %}
+                <a href="{% url 'cadastro' %}" data-toggle="tooltip" title="Add aos favoritos"><i class="fas fa-heart fa-2x" id="heart" style="margin-top: -27px; display: flex; margin-left: 440px; height: 50px; width: 70px;"></i></a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% include 'parciais/_footer.html' %}
+{% endblock %}

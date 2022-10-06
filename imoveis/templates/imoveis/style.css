@@ -1,0 +1,152 @@
+@charset "UTF-8";
+
+* {
+    font-family: Inter, sans-serif;
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    margin: 0;
+    min-height: 100%;
+}
+
+.container{
+    margin: auto;
+    display: grid;
+    max-width: 100%;
+    min-height: 100vh;
+    grid-template: "topo topo" 120px
+                    "box box" / 1fr;
+    grid-auto-rows: auto;
+}
+
+.topo{
+    display: flex;
+    grid-area: topo;
+}
+
+.box{
+    display: flex;
+    grid-area: box;
+    background: url('D:/Universidade/WebI/fotos/Picos-PI-32.png') no-repeat center fixed;
+    background-size: cover;
+    max-width: 100%;
+    min-height: 100%;
+}
+
+p {
+    padding: 3%;
+    text-align: center;
+    color: #000000;
+    font-size: xx-large;
+}
+
+h2 {
+    color: #fff;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    margin: 10px 980px;
+}
+nav a {
+    color: #000000;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+#title {
+    position: fixed;
+    left: 2%;
+    top: 3%;
+}
+
+#button{
+    background-color: #161B35;
+    color: #fff;
+    border-radius: 5px;
+    padding: 8px 18px;
+}
+
+nav li {
+    list-style: none;
+}
+
+nav ul li{
+    padding: 10px;
+    display: inline;
+    position: relative;
+}
+
+.box {
+    margin: auto;
+    width: 100%;
+}
+
+.box input {
+    background: #ffffff;
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    box-sizing: border-box;
+    border-radius: 15px 0 0 15px;
+}
+
+.box input[type="text"] {
+    background: #ffffff;
+    color: #625A5A;
+    width: 540px;
+    height: 50px;
+    border: none;
+    outline: none;
+    padding: 0 40px;
+}
+
+.box select {
+    background: #ffffff;
+    color: #625A5A;
+    position: relative;
+    left: -15px;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-size: 18px;
+    padding: 15px 16px 13px;
+    margin: -2px;
+    border-right: 15px solid #ffffff;
+    border-left: 0.3px solid #000000;
+}
+
+.box input[type="submit"] {
+    position: relative;
+    left: -32px;
+    width: 150px;
+    height: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: #161B35;
+    color: #fff;
+    border-radius: 15px;
+}
+
+.box i {
+    position: absolute;
+    left: 100px;
+    right: 100px;
+    padding: 10% 20%;
+}
+
+form {
+    margin: auto;
+    position: absolute;
+    top: 22%;
+    left: 15%;
+}
+

@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+
+{% block conteudo %}
+    <style>
+h3 {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+  color: #000000;
+}
+
+label#cadastro, #myFile {
+  text-align: center;
+  margin: 0 550px;
+}
+
+
+.container-fluid{
+    padding-top: 80px;
+    align-items: center;
+  }
+
+#final {
+  margin-top: 10px;
+  margin-left: -240px;
+}
+
+#final label {
+    margin-left: 580px;
+}
+
+
+.form-group {
+    width: 500px;
+    text-align: center;
+    margin: 25px 0px 0 230px;
+}
+
+#button1 {
+    background-color: #161B35;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px 30px;
+    margin-top: -10px;
+}
+
+#info {
+  margin-left: 230px;
+  margin-top: 25px;
+  align-items: center;
+}
+</style>
+<div class="container-fluid">
+    <h3>Cadastrar seu Imóvel</h3>
+    <p>Preencha as informações necessárias para divulgar seu imóvel, abaixo:</p>
+    <form method="POST" action="{% url 'cadastro_imovel' %}">
+        {% include 'parciais/_messages.html' %}
+        {% csrf_token %}
+        <div class="form-group">
+            <input type="text" class="form-control" id="bairro" placeholder="Bairro que se encontra o imóvel" name="bairro" value="{{ request.POST.bairro }}">
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="sel3" style="color: #a5a3a5;">
+                <option value="" disabled selected hidden>Avenida ou Rua</option>
+                <option value="{{ request.POST.av_rua }}">Avenida</option>
+                <option value="{{ request.POST.av_rua }}">Rua</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="logradouro" placeholder="Rua/Av do imóvel" name="logradouro" value="{{ request.POST.logradouro }}">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="numero" placeholder="Número do imóvel" name="numero" value="{{ request.POST.numero }}">
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="sel1" style="color: #a5a3a5;" value="{{ request.POST.tipo }}">
+            <option value="" disabled selected hidden>Tipo de imóvel</option>
+            <option>Apartamento</option>
+            <option>Casa</option>
+            <option>Condominio</option>
+            <option>Quarto</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="m2" placeholder="Tamanho em m² (metros quadrados)" name="m2" value="{{ request.POST.m2 }}">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="qtd_quartos" placeholder="Quantidade de quartos" name="qtd_quartos" value="{{ request.POST.qtd_quartos }}">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="qtd_banheiros" placeholder="Quantidade de banheiros" name="qtd_banheiros" value="{{ request.POST.qtd_banheiros }}">
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="sel2" style="color: #a5a3a5;" value="{{ request.POST.garagem }}">
+            <option value="{{ request.POST.av_rua }}" disabled selected hidden>Possui Garagem?</option>
+            <option>Sim</option>
+            <option>Não</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="sel1" style="color: #a5a3a5;" value="{{ request.POST.pets }}">
+            <option value="" disabled selected hidden>Aceita Pets?</option>
+                <option>Sim</option>
+                <option>Não</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="sel1" style="color: #a5a3a5;" value="{{ request.POST.quintal }}">
+            <option value="" disabled selected hidden>Possui quintal?</option>
+                <option>Sim</option>
+                <option>Não</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="sel3" style="color: #a5a3a5;" value="{{ request.POST.venda_aluguel }}">
+            <option value="" disabled selected hidden>Vender ou Alugar?</option>
+            <option>Vender</option>
+            <option>Alugar</option>
+            </select>
+        </div>
+        <div class="form-group">
+        <input type="text" class="form-control" id="dinheiro" name="dinheiro" placeholder="Valor do aluguel/venda: R$" value="{{ request.POST.dinheiro }}">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="telefone" placeholder="Telefone para contato" name="telefone" value="{{ request.POST.telefone }}">
+        </div>
+    <div id="info">
+    <textarea rows="5" cols="49" id="complemento" placeholder="Mais informações sobre o imóvel" name="complemento" value="{{ request.POST.complemento }}"></textarea>
+    </div>
+
+    <div id="final">
+    <label id="cadastro">Anexe aqui as fotos do Imóvel</label>
+    <input type="file" id="myFile" accept="image/*"/ value="{{ request.POST.imagem }}"><br>
+
+    <p><button type="submit" id="button1">Cadastrar Imóvel</button></p>
+    </form>
+</div>
+{% endblock %}

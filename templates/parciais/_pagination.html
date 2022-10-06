@@ -1,0 +1,69 @@
+<style>
+    .pagination > li > a
+    {
+        background-color: white;
+        color: #161B35;
+    }
+    
+    .pagination > li > a:focus,
+    .pagination > li > a:hover,
+    .pagination > li > span:focus,
+    .pagination > li > span:hover
+    {
+        color: #5a5a5a;
+        background-color: #eee;
+        border-color: #ddd;
+    }
+    
+    .pagination > .active > a
+    {
+        color: white;
+        background-color: #161B35 !Important;
+        border: solid 1px #161B35 !Important;
+    }
+    
+    .pagination > .active > a:hover
+    {
+        background-color: #161B35 !Important;
+        border: solid 1px #161B35;
+    }
+    
+</style>
+
+{% if is_paginated %}
+<div class="pagination" style="justify-content: center; display: flex;">
+    <ul class="pagination justify-content-center" style="margin-top: -50px;">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1">&laquo;</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+        </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+
+        {% if page_obj.number == num %}
+        <li class="page-item active">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endif %}
+
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}

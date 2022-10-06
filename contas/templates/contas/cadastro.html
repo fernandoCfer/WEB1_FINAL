@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Central IMÓVEIS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/52e9b52be4.js" crossorigin="anonymous"></script> 
+  
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.w3-btn {
+  width:150px;
+}
+
+h1, h3, div {
+  text-align: center;
+}
+
+#entrada {
+  padding-left: 30px; 
+  width: 40%; 
+  margin: auto;
+}
+
+#icons {
+  position: absolute; 
+  top: 28px; 
+  left: 350px;
+}
+
+.button{
+    background-color: #161B35;
+    color: #fff;
+    border-radius: 50px;
+    padding: 10px 50px;
+}
+
+</style>
+  
+</head>
+<body>
+  <div class="container">
+    <br><br><br>
+    <h1><b>Bem vindo(a) a Central Imóveis</b></h1>
+    <h3>Vamos ajuda-lo a encontrar <br> o lugar perfeito para você.</br></h3>
+    <form method="POST" action="{% url 'cadastro' %}">
+      {% include 'parciais/_messages.html'%}
+      {% csrf_token %}
+      <div style="position: relative;">
+        <label for="nome"></label>
+        <input size="50" type="text" class="form-control" id="entrada" placeholder="Nome" name="nome" value="{{ request.POST.nome }}" size="4">
+        <i class="fa-thin fa-user" id="icons"></i>
+      </div>
+
+      <div style="position: relative;">
+        <label for="sobrenome"></label>
+        <input size="50" type="text" class="form-control" id="entrada" placeholder="Sobrenome" name="sobrenome" value="{{ request.POST.sobrenome }}" size="4">
+        <i class="fa-thin fa-user" id="icons"></i>
+      </div>
+
+      <div style="position: relative;">
+        <label for="usuario"></label>
+        <input size="50" type="text" class="form-control" id="entrada" placeholder="Usuário" name="usuario" value="{{ request.POST.usuario }}" size="4">
+        <i class="fa-thin fa-user" id="icons"></i>
+      </div>
+
+      <div style="position: relative;">
+        <label for="email"></label>
+        <input type="text" class="form-control" id="entrada" placeholder="E-mail" name="email" value="{{ request.POST.email }}">
+        <i class="fa-light fa-envelope" id="icons"></i>
+      </div>
+      
+      <div style="position: relative;">
+        <label for="senha"></label>
+        <input type="password" class="form-control" id="entrada" placeholder="Senha" name="senha">
+        <i class="fa-light fa-lock" id="icons"></i>
+      </div>
+
+      <div style="position: relative;">
+        <label for="conf_senha"></label>
+        <input type="password" class="form-control" id="entrada" placeholder="Confirme sua senha" name="conf_senha">
+        <i class="fa-light fa-lock" id="icons"></i>
+      </div>
+
+      <div class="checkbox">
+        <label><input type="checkbox">Eu concordo com os <a style="color:rgb(74, 15, 235);" href = "#">Termos de uso e de privacidade</a></label>
+      </div>
+    
+    <p><button type="submit" class="button">Cadastre-se</button></p>
+    
+    <h4>Já possui uma conta?</h4>
+
+    <a style="color:rgb(74, 15, 235);" href = "../login">Fazer login</a>
+    </form>
+  </div>
+
+</body>
+</html>

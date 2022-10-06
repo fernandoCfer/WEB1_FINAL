@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+
+{% block conteudo %}
+    <h2>Lista dos seus imóveis favoritos</h2>
+    {% include 'parciais/_messages.html'%}
+    {% for imovel in novo %}
+            <section class="imovel">
+              <a href="{% url 'imoveis_detalhes' imovel.id %}">
+                {% if imovel.imagens_imovel %}
+                    <img src="{{ imovel.imagens_imovel.url }}" alt="foto imovel" id="foto_imovel">
+                {% endif %}
+              </a>
+                <h4>{{ imovel.categoria_imovel|title }}</h4>
+                <a href="{% url 'favorito_add' imovel.id %}" data-toggle="tooltip" title="Remover dos favoritos"><i class="fas fa-heart fa-2x" id="heartfav"></i></a>
+                <p id="endereco">{{ imovel.av_rua_imovel }} {{ imovel.rua_imovel }}, {{ imovel.bairro_imovel|title }}</p>
+                <p id="valor">{{ imovel.venda_alugel_imovel }}: R${{ imovel.preco_imovel }}</p>
+            </section>
+        {% endfor %}
+    {% include 'parciais/_pagination.html' %}
+{% endblock %}

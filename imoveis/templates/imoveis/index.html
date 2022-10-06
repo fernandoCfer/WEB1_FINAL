@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block conteudo %}
+    {% if view.kwargs.categoria %}
+      <h2> {{ view.kwargs.categoria|title }} para alugar e vender em Picos, Piauí</h2>
+    {% else %}
+      <h2> Imóveis para alugar e vender em Picos, Piauí</h2>
+    {% endif %}
+      <div class="box">
+        <form action="{% url 'imoveis_busca' %}" style="margin-left: 150px;">
+            <input name="bairro" type="text" placeholder="Busque um bairro..." value="{{ request.GET.termo }}">
+            <input type="submit" value="Busca">
+        </form>
+    </div>
+    {% include 'parciais/_messages.html' %}
+        {% for imovel in imoveis %}
+            <section class="imovel">
+              <a href="{% url 'imoveis_detalhes' imovel.id %}">
+                {% if imovel.imagens_imovel %}
+                    <img src="{{ imovel.imagens_imovel.url }}" alt="foto imovel" id="foto_imovel">
+                {% endif %}
+              </a>
+                <h4>{{ imovel.categoria_imovel|title }}</h4>
+                {% if user.is_authenticated %}
+                  {% if imovel in favoritos_lista %}
+                    <a href="{% url 'favorito_add' imovel.id %}" data-toggle="tooltip" title="Remover dos favoritos"><i class="fas fa-heart fa-2x" id="heartfav"></i></a>
+                  {% else %}
+                    <a href="{% url 'favorito_add' imovel.id %}" data-toggle="tooltip" title="Add aos favoritos"><i class="fas fa-heart fa-2x" id="heart"></i></a>
+                  {% endif %}
+                {% else %}
+                  <a href="{% url 'cadastro' %}" data-toggle="tooltip" title="Add aos favoritos"><i class="fas fa-heart fa-2x" id="heart"></i></a>
+                {% endif %}
+                  <p id="endereco">{{ imovel.av_rua_imovel }} {{ imovel.rua_imovel }}, {{ imovel.bairro_imovel|title }}</p>
+                <p id="valor">{{ imovel.venda_alugel_imovel }}: R${{ imovel.preco_imovel }}</p>
+            </section>
+        {% endfor %}
+    {% include 'parciais/_pagination.html' %}
+    {% include 'parciais/_footer.html' %}
+{% endblock %}

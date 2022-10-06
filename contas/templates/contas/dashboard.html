@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+
+{% block conteudo %}
+    {% include 'parciais/_messages.html'%}
+    {% if user.is_authenticated %}
+        <form action="{% url 'atualizar_dados' user.id %}" method="post" style="padding-left: 150px;">
+            {% csrf_token %}
+            <div class="form-wrapper" style="background: #fff;position: relative;min-height: 300px;margin: -30px auto;border: 1px solid #d1d7dc; box-sizing: border-box; text-align: center;">
+                    <strong><h3 style="border-bottom: 1px solid #d1d7dc; padding: 10px 10px;">Seu perfil @{{ user }}</h3></strong>
+                    <div style="padding: 0 30px 0 30px;">
+                    <strong><p style="margin-left: -550px;">Dados básicos: </p></strong>
+                    <div style="margin-bottom: 15px;">
+                        <input type="text" class="udlite-form-group" style="min-width: 45rem; max-width: 60rem;" placeholder="Usuário" name="usuario" value="{{ user }}">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <input type="text" class="udlite-form-group" style="min-width: 45rem; max-width: 60rem;" placeholder="Nome" name="nome" value="{{ user.first_name }}">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <input type="text" class="udlite-form-group" style="min-width: 45rem; max-width: 60rem;" placeholder="Sobrenome" name="sobrenome" value="{{ user.last_name }}">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <input type="text" class="udlite-form-group" style="min-width: 45rem; max-width: 60rem;" placeholder="E-mail" name="email" value="{{ user.email }}">
+                    </div>
+                    <p><button type="submit" class="button" style="background-color: #161B35;color: #fff;border-radius: 5px;padding: 8px 18px;">Atualizar</button></p>
+                </div>
+            </div>
+        </form>
+        {% else %}
+            <h2>Você precisa estar logado para acessar esta página.</h2>
+    {% endif %}
+{% endblock %}
